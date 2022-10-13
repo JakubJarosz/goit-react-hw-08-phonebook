@@ -11,6 +11,7 @@ import { Home } from "../pages/Home";
 import { Register } from "../pages/Register";
 import { Login } from "../pages/Login";
 import { Tasks } from "../pages/Tasks";
+import CircularProgress from '@mui/material/CircularProgress';
 
 // const HomePage = lazy(() => import('../pages/Home'));
 // const RegisterPage = lazy(() => import('../pages/Register'));
@@ -32,7 +33,7 @@ export const App = () => {
  }, [])
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    <CircularProgress color="secondary" />
   ) : (
       <Routes>
         <Route path="/" element={<Layout />}>

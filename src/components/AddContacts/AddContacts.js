@@ -1,19 +1,30 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { addContacts } from 'redux/tasks/operations';
+import { useCont } from 'hooks/useCont';
+import  Alert  from '@mui/material/Alert';
 
 export const AddContacts = () => {
     const dispatch = useDispatch();
+    const { contacts } = useCont();
 
     const handleSubmit = (e) => {
         e.preventDefault();
           const form = e.currentTarget;
           const name = form.elements.name.value;
         const number = form.elements.number.value;
-        dispatch(addContacts({
-            name: name,
-            number: number
-        }))
+        const filteredData = contacts.filter((el) => el.name === name)
+        if (filteredData.length > 0) {
+             alert("Contact is already in a phonebook ")
+        } else {
+            dispatch(
+              addContacts({
+                name: name,
+                number: number,
+              })
+            );
+        }
+        
         form.reset();
     }
 

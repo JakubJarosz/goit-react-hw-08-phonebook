@@ -2,6 +2,13 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useCont } from "../../hooks/useCont"
 import { deleteContacts } from 'redux/tasks/operations';
+import {
+  ListItem,
+  List,
+  ListItemText,
+  IconButton,
+} from '@mui/material';
+import styles from "../../components/ContactsList/ContactsList.module.css"
 
 export const ContactsList = () => {
 
@@ -14,17 +21,32 @@ export const ContactsList = () => {
   }
   
   return (
-      <div>
-      <ul>
-        {contacts.map(({id, name, number}) => (
-          <li key={id}>
-            {name}  {number}
-            <button id={id} onClick={handleDelete}>Delete</button>
-          </li>
-        ))}
-        </ul>
+    <div>
+      
+        <List
+          
+          sx={{ width: '100%', maxWidth: 260, bgcolor: 'background.paper' }}
+        >
+          {contacts.map(({ id, name, number }) => (
+            <ListItem
+              key={id}
+              disableGutters
+              secondaryAction={
+                <IconButton id={id} onClick={handleDelete} aria-label="comment">
+                  Delete
+                </IconButton>
+              }
+            >
+              <ListItemText
+                primary={`name:${name}`}
+                secondary={`phone:+${number}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+      
     </div>
-  )
+  );
 }
 
 
