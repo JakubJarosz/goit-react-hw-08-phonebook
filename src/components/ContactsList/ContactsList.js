@@ -21,7 +21,7 @@ export const ContactsList = () => {
   }
   
   return (
-    <div>
+    <div className={styles.contactslist}>
       
         <List
           
@@ -29,6 +29,7 @@ export const ContactsList = () => {
         >
           {contacts.map(({ id, name, number }) => (
             <ListItem
+    
               key={id}
               disableGutters
               secondaryAction={
