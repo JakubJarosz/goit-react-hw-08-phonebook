@@ -21,12 +21,12 @@ import CircularProgress from '@mui/material/CircularProgress';
 export const App = () => {
   const dispatch = useDispatch();
   const { isRefreshing } = useAuth();
-
-
+  const store = window.localStorage.getItem('token')
+ 
   useEffect(() => {
     dispatch(refreshUser());
-    
-  }, [dispatch]);
+    console.log(store)
+  }, [dispatch, store]);
 
   useEffect(() => {
     dispatch(fetchContacts())
