@@ -1,4 +1,4 @@
-import { useEffect, lazy } from "react";
+import { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from "./Layout";
@@ -11,6 +11,7 @@ import { Home } from "../pages/Home";
 import { Register } from "../pages/Register";
 import { Login } from "../pages/Login";
 import { Tasks } from "../pages/Tasks";
+
 import CircularProgress from '@mui/material/CircularProgress';
 
 // const HomePage = lazy(() => import('../pages/Home'));
@@ -20,17 +21,17 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
-  const store = window.localStorage.getItem('token')
+  const { isRefreshing} = useAuth();
+  const token = window.localStorage.getItem('token')
  
   useEffect(() => {
     dispatch(refreshUser());
-    console.log(store)
-  }, [dispatch, store]);
+    console.log(token)
+  }, [dispatch, token]);
 
   useEffect(() => {
     dispatch(fetchContacts())
- }, [])
+ })
 
   return isRefreshing ? (
     <CircularProgress color="secondary" />
@@ -41,13 +42,13 @@ export const App = () => {
           <Route
             path="/register"
             element={
-              <RestrictedRoute redirectTo="/tasks" component={<Register/>} />
+              <RestrictedRoute redirectTo="/" component={<Register/>} />
             }
           />
           <Route
             path="/login"
             element={
-              <RestrictedRoute redirectTo="/tasks" component={<Login />} />
+              <RestrictedRoute redirectTo="/" component={<Login />} />
             }
           />
           <Route

@@ -1,3 +1,6 @@
+
+import { useAuth } from '../hooks/useAuth'
+
 const styles = {
   container: {
     minHeight: 'calc(100vh - 50px)',
@@ -12,11 +15,18 @@ const styles = {
   },
 };
 
-export  function Home() {
-  return (
+export function Home() {
+  const { isLoggedIn, user } = useAuth();
+  return isLoggedIn ? (
     <div style={styles.container}>
       <h1 style={styles.title}>
-        Task manager welcome page{' '}
+        Welcome {user.name}
+      </h1>
+    </div>
+  )  : (
+    <div style={styles.container}>
+      <h1 style={styles.title}>
+        Main page
         <span role="img" aria-label="Greeting icon">
           💁‍♀️
         </span>

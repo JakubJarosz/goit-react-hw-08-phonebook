@@ -10,33 +10,46 @@ const authSlice = createSlice({
     isRefreshing: false,
   },
   extraReducers: {
-      [register.fulfilled](state, action) {
-          state.user = action.payload.user;
+    [register.fulfilled](state, action) {
+      state.user = action.payload.user;
       state.token = action.payload.token;
-          state.isLoggedIn = true;
+      state.isLoggedIn = true;
+       window.localStorage.setItem(
+         'token',
+         JSON.stringify(action.payload.token)
+       );
     },
-      [logIn.fulfilled](state, action) {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        window.localStorage.setItem("token", JSON.stringify(action.payload.token))
+    [register.rejected]() {
+      alert("This account already exist")
     },
-      [logOut.fulfilled](state) {
-         state.user = {name: null, email: null};
-         state.token = null;
-         state.isLoggedIn = false;
+    [logIn.fulfilled](state, action) {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isLoggedIn = true;
+      window.localStorage.setItem(
+        'token',
+        JSON.stringify(action.payload.token)
+      );
     },
-      [refreshUser.pending](state) {
-        state.isRefreshing = true
+    [logIn.rejected]() {
+      alert('Wrong email or password, try again');
     },
-      [refreshUser.fulfilled](state, action) {
-          state.user = action.payload;
-          state.isLoggedIn = true;
-          state.isRefreshing = false;
-      },
-      [refreshUser.rejected](state) {
-          state.isRefreshing = false;
-      }
+    [logOut.fulfilled](state) {
+      state.user = { name: null, email: null };
+      state.token = null;
+      state.isLoggedIn = false;
+    },
+    [refreshUser.pending](state) {
+      state.isRefreshing = true;
+    },
+    [refreshUser.fulfilled](state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+      state.isRefreshing = false;
+    },
+    [refreshUser.rejected](state) {
+      state.isRefreshing = false;
+    },
   },
 });
 

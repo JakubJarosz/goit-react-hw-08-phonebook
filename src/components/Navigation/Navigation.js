@@ -15,7 +15,7 @@ export const Navigation = () => {
               </NavLink>
             </li>
             <li className={styles.navigation}>
-              {isLoggedIn && (
+              {isLoggedIn  && (
                 <NavLink className={styles.nav__link}  to="/tasks">
                   Tasks
                 </NavLink>
