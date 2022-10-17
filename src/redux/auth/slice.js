@@ -17,7 +17,8 @@ const authSlice = createSlice({
        window.localStorage.setItem(
          'token',
          JSON.stringify(action.payload.token)
-       );
+      );
+      alert("Registration successful")
     },
     [register.rejected]() {
       alert("This account already exist")
